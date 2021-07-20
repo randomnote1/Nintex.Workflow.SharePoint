@@ -5,7 +5,7 @@
     <RootNamespace>ManagementPackTemplate</RootNamespace>
     <Name>ManagementPackTemplate</Name>
     <ManagementPackName>ManagementPackTemplate</ManagementPackName>
-    <Version>4.7.10.9</Version>
+    <Version>4.8.11.10</Version>
     <MpFrameworkVersion>v7.0.3</MpFrameworkVersion>
     <MpFrameworkProfile>OM</MpFrameworkProfile>
     <ProductVersion>1.1.0.0</ProductVersion>
