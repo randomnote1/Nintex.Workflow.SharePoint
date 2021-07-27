@@ -2,9 +2,9 @@
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
-        <DisplayString ElementID="ManagementPackTemplate">
-          <Name>ManagementPackTemplate</Name>
-          <Description>A blank management pack</Description>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint">
+          <Name>Nintex Workflow for SharePoint</Name>
+          <Description>Monitors Nintex Workflow for SharePoint</Description>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

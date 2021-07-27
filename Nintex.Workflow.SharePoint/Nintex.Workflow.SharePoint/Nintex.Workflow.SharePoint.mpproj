@@ -1,0 +1,115 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{8f6169d1-f3f5-4db2-a1f2-6adba400bcd9}</ProjectGuid>
+    <RootNamespace>Nintex.Workflow.SharePoint</RootNamespace>
+    <Name>Nintex.Workflow.SharePoint</Name>
+    <ManagementPackName>Nintex.Workflow.SharePoint</ManagementPackName>
+    <Version>1.0.0.0</Version>
+    <MpFrameworkVersion>v7.0.3</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSealed>True</GenerateSealed>
+    <Company>Microsoft</Company>
+    <Copyright>Copyright (c) Microsoft. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <AssemblyOriginatorKeyFile>..\..\Build\Nintex.Workflow.SharePoint.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>false</DelaySigning>
+    <Company>MyCompany</Company>
+    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SharePoint.2019.Discovery">
+      <HintPath>..\..\Build\References\Microsoft.SharePoint.2019.Discovery.mpb</HintPath>
+      <Alias>SP2019</Alias>
+      <MinVersion>16.0.11426.3000</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SharePoint.Library">
+      <HintPath>..\..\Build\References\Microsoft.SharePoint.Library.mpb</HintPath>
+      <Alias>SPLibrary</Alias>
+      <MinVersion>16.0.11426.3000</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.InstanceGroup.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2016\Microsoft.SystemCenter.InstanceGroup.Library.mp</HintPath>
+      <Alias>MSIL</Alias>
+      <MinVersion>7.5.8501.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <Alias>SC</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <Alias>Windows</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Health.Library">
+      <Alias>Health</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <Alias>System</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Library">
+      <Alias>Visualization</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes" />
+    <Folder Include="Discoveries" />
+    <Folder Include="DataSources" />
+    <Folder Include="Rules" />
+    <Folder Include="SecureReferences" />
+    <Folder Include="Resources" />
+    <Folder Include="Scripts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Nintex.Workflow.SharePoint.Class.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Nintex.Workflow.SharePoint.MOSSInstallation.Group.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataSources\Nintex.Workflow.SharePoint.Discovery.DataSource.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Discoveries\Nintex.Workflow.SharePoint.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Discoveries\Nintex.Workflow.SharePoint.MOSSInstallation.Group.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ManagementPack.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Resources\Nintex.Workflow.SharePoint.HelperFunctions.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rules\Nintex.Workflow.SharePoint.FailedToConnectToConfigurationDatabase.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SecureReferences\Nintex.Workflow.SharePoint.RunasProfile.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\HelperFunctions.ps1" />
+    <EmbeddedResource Include="Scripts\Invoke-NintexWorkflowSharePointDiscovery.ps1" />
+    <EmbeddedResource Include="Scripts\Set-NintexWorkflowForSharePointRunAsProfile.ps1" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>
