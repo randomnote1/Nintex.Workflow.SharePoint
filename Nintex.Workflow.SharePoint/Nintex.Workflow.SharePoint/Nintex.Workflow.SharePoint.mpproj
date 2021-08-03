@@ -72,6 +72,8 @@
     <Folder Include="Classes" />
     <Folder Include="Discoveries" />
     <Folder Include="DataSources" />
+    <Folder Include="Presentation" />
+    <Folder Include="Relationships" />
     <Folder Include="Rules" />
     <Folder Include="SecureReferences" />
     <Folder Include="Resources" />
@@ -81,7 +83,13 @@
     <Compile Include="Classes\Nintex.Workflow.SharePoint.Class.mpx">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Nintex.Workflow.SharePoint.MOSSInstallation.Group.mpx">
+    <Compile Include="Classes\Nintex.Workflow.SharePoint.Database.Class.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Nintex.Workflow.SharePoint.Database.Configuration.Class.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Nintex.Workflow.SharePoint.Database.Content.Class.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataSources\Nintex.Workflow.SharePoint.Discovery.DataSource.mpx">
@@ -90,10 +98,25 @@
     <Compile Include="Discoveries\Nintex.Workflow.SharePoint.Discovery.mpx">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Discoveries\Nintex.Workflow.SharePoint.MOSSInstallation.Group.Discovery.mpx">
+    <Compile Include="ManagementPack.mpx">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ManagementPack.mpx">
+    <Compile Include="Presentation\Nintex.Folder.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\Nintex.Workflow.SharePoint.Database.Configuration.State.View.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\Nintex.Workflow.SharePoint.Database.Content.State.View.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\Nintex.Workflow.SharePoint.Folder.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\Nintex.Workflow.SharePoint.State.View.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Relationships\Nintex.Workflow.SharePoint.Hosts.Database.Relationship.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Resources\Nintex.Workflow.SharePoint.HelperFunctions.mpx">

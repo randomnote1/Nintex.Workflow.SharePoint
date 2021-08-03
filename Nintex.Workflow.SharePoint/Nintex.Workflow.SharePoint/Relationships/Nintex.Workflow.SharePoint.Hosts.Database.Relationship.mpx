@@ -1,0 +1,22 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <RelationshipTypes>
+        <RelationshipType ID="Nintex.Workflow.SharePoint.Hosts.Database.Relationship" Accessibility="Public" Base="System!System.Hosting">
+          <Source ID="Source" Type="Nintex.Workflow.SharePoint.Class" />
+          <Target ID="Target" Type="Nintex.Workflow.SharePoint.Database.Class" />
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Hosts.Database.Relationship">
+          <Name>Nintex Workflow for SharePoint Hosts Databases</Name>
+          <Description>Describes the relationship between Nintex Workflow for SharePoint and its databases.</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

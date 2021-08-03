@@ -1,9 +1,0 @@
-﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <TypeDefinitions>
-    <EntityTypes>
-      <ClassTypes>
-        <ClassType ID="Nintex.Workflow.SharePoint.MOSSInstallation.Group" Accessibility="Public" Abstract="false" Base="MSIL!Microsoft.SystemCenter.InstanceGroup" Hosted="false" Singleton="true" Extension="false" />
-      </ClassTypes>
-    </EntityTypes>
-  </TypeDefinitions>
-</ManagementPackFragment>

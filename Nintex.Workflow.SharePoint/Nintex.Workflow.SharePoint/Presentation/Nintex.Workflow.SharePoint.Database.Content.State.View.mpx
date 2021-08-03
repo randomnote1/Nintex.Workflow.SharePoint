@@ -1,0 +1,45 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Presentation>
+    <Views>
+      <View ID="Nintex.Workflow.SharePoint.Database.Content.State.View" Accessibility="Internal" Enabled="true" Target="Nintex.Workflow.SharePoint.Database.Content.Class" TypeID="SC!Microsoft.SystemCenter.StateViewType" Visible="true">
+        <Category>Custom</Category>
+        <Criteria />
+        <Presentation>
+          <ColumnInfo Index="1" SortIndex="0" Width="26" Grouped="false" Sorted="true" IsSortable="true" Visible="true" SortOrder="Descending">
+            <Name>State</Name>
+            <Id>Nintex.Workflow.SharePoint.Database.Content.Class</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="2" SortIndex="-1" Width="26" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Maintenance Mode</Name>
+            <Id>InMaintenanceMode</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="3" SortIndex="3" Width="150" Grouped="false" Sorted="true" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Farm</Name>
+            <Id>Nintex.Workflow.SharePoint.Class/Farm</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="4" SortIndex="2" Width="200" Grouped="false" Sorted="true" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Database</Name>
+            <Id>Nintex.Workflow.SharePoint.Database.Class/DatabaseName</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="5" SortIndex="2" Width="150" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Instance</Name>
+            <Id>Nintex.Workflow.SharePoint.Database.Class/InstanceName</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="6" SortIndex="2" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Version</Name>
+            <Id>Nintex.Workflow.SharePoint.Database.Class/Version</Id>
+          </ColumnInfo>
+        </Presentation>
+      </View>
+    </Views>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Content.State.View">
+          <Name>Content Database</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

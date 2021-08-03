@@ -2,9 +2,30 @@
   <TypeDefinitions>
     <EntityTypes>
       <ClassTypes>
-        <ClassType ID="Nintex.Workflow.SharePoint.Class" Accessibility="Public" Abstract="true" Base="System!System.LogicalEntity" Hosted="false" Singleton="false">
+        <ClassType ID="Nintex.Workflow.SharePoint.Class" Accessibility="Public" Abstract="false" Base="System!System.LogicalEntity" Hosted="false" Singleton="false">
+          <Property ID="Farm" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="Version" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="50" MinLength="0" Required="false" Scale="0" />
         </ClassType>
       </ClassTypes>
     </EntityTypes>
   </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Class">
+          <Name>Nintex Workflow for SharePoint</Name>
+          <Description>An installation of Nintex Workflow for SharePoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Class" SubElementID="Farm">
+          <Name>Farm</Name>
+          <Description>The SharePoint farm that Nintex Workflow for SharePoint is installed in.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Class" SubElementID="Version">
+          <Name>Version</Name>
+          <Description>The version of Nintex Workflow for SharePoint which is installed.</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles></KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
 </ManagementPackFragment>

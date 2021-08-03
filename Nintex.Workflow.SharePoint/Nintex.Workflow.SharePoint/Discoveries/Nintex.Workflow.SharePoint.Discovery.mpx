@@ -5,9 +5,12 @@
         <Category>Discovery</Category>
         <DiscoveryTypes>
           <DiscoveryClass TypeID="Nintex.Workflow.SharePoint.Class" />
+          <DiscoveryClass TypeID="Nintex.Workflow.SharePoint.Database.Class" />
+          <DiscoveryClass TypeID="Nintex.Workflow.SharePoint.Database.Configuration.Class" />
+          <DiscoveryClass TypeID="Nintex.Workflow.SharePoint.Database.Content.Class" />
         </DiscoveryTypes>
         <DataSource ID="DS" TypeID="Nintex.Workflow.SharePoint.Discovery.DataSource" RunAs="Nintex.Workflow.SharePoint.RunasProfile">
-          <IntervalSeconds>300</IntervalSeconds>
+          <IntervalSeconds>86400</IntervalSeconds>
           <SyncTime />
           <TimeoutSeconds>300</TimeoutSeconds>
           <DebugLogging>true</DebugLogging>
