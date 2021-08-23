@@ -1,11 +1,11 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Monitoring>
     <Rules>
-      <Rule ID="Nintex.Workflow.SharePoint.FailedToConnectToConfigurationDatabase" Enabled="true" Target="SP2019!Microsoft.SharePoint.2019.MOSSInstallation" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
+      <Rule ID="Nintex.Workflow.SharePoint.Discovery.WarningEvents" Enabled="true" Target="Nintex.Workflow.SharePoint.Class" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>Alert</Category>
         <DataSources>
           <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider">
-            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</ComputerName>
             <LogName>Operations Manager</LogName>
             <Expression>
               <And>
@@ -38,18 +38,9 @@
                     </ValueExpression>
                     <Operator>Equal</Operator>
                     <ValueExpression>
-                      <Value Type="Integer">4</Value>
+                      <Value Type="Integer">2</Value>
                     </ValueExpression>
                   </SimpleExpression>
-                </Expression>
-                <Expression>
-                  <RegExExpression>
-                    <ValueExpression>
-                      <XPathQuery Type="String">EventDescription</XPathQuery>
-                    </ValueExpression>
-                    <Operator>ContainsSubstring</Operator>
-                    <Pattern>NWAdmin was unable to open a connection to the Nintex Workflow configuration database</Pattern>
-                  </RegExExpression>
                 </Expression>
               </And>
             </Expression>
@@ -64,7 +55,7 @@
             <AlertName />
             <AlertDescription />
             <AlertOwner />
-            <AlertMessageId>$MPElement[Name="Nintex.Workflow.SharePoint.FailedToConnectToConfigurationDatabase.AlertMessage"]$</AlertMessageId>
+            <AlertMessageId>$MPElement[Name="Nintex.Workflow.SharePoint.Discovery.WarningEvents.AlertMessage"]$</AlertMessageId>
             <AlertParameters>
               <AlertParameter1>$Data/Params/Param[2]$</AlertParameter1>
             </AlertParameters>
@@ -92,17 +83,17 @@
   </Monitoring>
   <Presentation>
     <StringResources>
-      <StringResource ID="Nintex.Workflow.SharePoint.FailedToConnectToConfigurationDatabase.AlertMessage" />
+      <StringResource ID="Nintex.Workflow.SharePoint.Discovery.WarningEvents.AlertMessage" />
     </StringResources>
   </Presentation>
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
-        <DisplayString ElementID="Nintex.Workflow.SharePoint.FailedToConnectToConfigurationDatabase">
-          <Name>Failed to connect to the Nintex Workflow configuration database</Name>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Discovery.WarningEvents">
+          <Name>Nintex Workflow configuration database is not configured</Name>
         </DisplayString>
-        <DisplayString ElementID="Nintex.Workflow.SharePoint.FailedToConnectToConfigurationDatabase.AlertMessage">
-          <Name>Failed to connect to the Nintex Workflow configuration database</Name>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Discovery.WarningEvents.AlertMessage">
+          <Name>Nintex Workflow configuration database is not configured</Name>
           <Description>{0}</Description>
         </DisplayString>
       </DisplayStrings>

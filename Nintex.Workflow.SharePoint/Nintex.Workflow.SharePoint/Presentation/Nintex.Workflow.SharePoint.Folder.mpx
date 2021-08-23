@@ -4,6 +4,7 @@
       <Folder ID="Nintex.Workflow.SharePoint.Folder" Accessibility="Internal" ParentFolder="Nintex.Folder" />
     </Folders>
     <FolderItems>
+      <FolderItem ElementID="Nintex.Workflow.SharePoint.ActiveAlerts.View" ID="Nintex.Workflow.SharePoint.ActiveAlerts.View.FolderItem" Folder="Nintex.Workflow.SharePoint.Folder" />
       <FolderItem ElementID="Nintex.Workflow.SharePoint.State.View" ID="Nintex.Workflow.SharePoint.State.View.FolderItem" Folder="Nintex.Workflow.SharePoint.Folder" />
       <FolderItem ElementID="Nintex.Workflow.SharePoint.Database.Configuration.State.View" ID="Nintex.Workflow.SharePoint.Database.Configuration.State.View.FolderItem" Folder="Nintex.Workflow.SharePoint.Folder" />
       <FolderItem ElementID="Nintex.Workflow.SharePoint.Database.Content.State.View" ID="Nintex.Workflow.SharePoint.Database.Content.State.View.FolderItem" Folder="Nintex.Workflow.SharePoint.Folder" />

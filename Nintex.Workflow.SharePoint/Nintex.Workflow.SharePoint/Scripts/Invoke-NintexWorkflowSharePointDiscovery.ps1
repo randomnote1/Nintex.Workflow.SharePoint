@@ -8,6 +8,10 @@
     [System.String]
     $ManagedEntityId,
 
+    [Parameter(Mandatory = $true)]
+	[System.String]
+    $PrincipalName,
+
     [Parameter()]
 	[System.String]
 	$DebugLogging = 'false',
@@ -61,7 +65,7 @@ $writeOperationsManagerEventParams = @{
 
 trap
 {
-    $message = "`n $parameterString `n $($_.ToString())"
+    $message = "`n $parameterString `n $($_ | Format-List -Force | Out-String)"
     Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 1 -Description $message -DebugLogging
 
     throw $message
@@ -72,20 +76,9 @@ $whoami = whoami
 $message = "`nScript is starting.`nRunning As: $whoami`n$parameterString"
 Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $message -DebugLogging:$debug
 
-# Define a lookup table to relate property names to the class instance
-$propertyInstance = @{
-    Farm = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]/Farm$'
-    NintexVersion = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]/Version$'
-    InstanceName = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/InstanceName$'
-    DatabaseName = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseName$'
-    Version = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/Version$'
-}
-
 # Initialize the DiscoveryData variable
 $discoveryData = @()
-#endregion initialize script
 
-#region Get Nintex Installation Info
 try
 {
     Add-PSSnapin -Name Microsoft.SharePoint.PowerShell -ErrorAction Stop
@@ -97,23 +90,17 @@ catch
     exit
 }
 
+Import-NintexWorkflowAssembly
+
+#endregion initialize script
+
+#region Get Nintex Installation Info
+
+
 $farm = Get-SPFarm
-
-try
-{
-    $nwAdminExe = Get-Command -Name NWAdmin.exe -ErrorAction Stop
-}
-catch
-{
-    $message = 'Could not find NWAdmin.exe.'
-    Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 1 -Description $message -DebugLogging
-    exit
-}
-
-$message = "`nNWAdmin.exe Path: $($nwAdminExe.Source)"
+$message = "`nFarm Name: $($farm.Name)"
 Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $message -DebugLogging:$debug
 
-[System.Reflection.Assembly]::Load('Nintex.Workflow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=913f6bae0ca5ae12') > $null
 $nintexVersion = [Nintex.Workflow.Version]::GetVersion()
 $message = "`nNintex Version: $($nintexVersion.ToString())"
 Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $message -DebugLogging:$debug
@@ -122,14 +109,20 @@ $discoveryData += @{
     DiscoveryType = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]$'
     Properties = @(
         @{
+            ClassName = 'Nintex.Workflow.SharePoint.CentralAdministration.Class'
+            PropertyInstance = '$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$'
+            PropertyName = 'PrincipalName'
+            PropertyValue = $PrincipalName
+        }
+        @{
             ClassName = 'Nintex.Workflow.SharePoint.Class'
-            PropertyInstance = $propertyInstance.Farm
+            PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]/Farm$'
             PropertyName = 'Farm'
             PropertyValue = $farm.Name
         }
         @{
             ClassName = 'Nintex.Workflow.SharePoint.Class'
-            PropertyInstance = $propertyInstance.NintexVersion
+            PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]/Version$'
             PropertyName = 'Version'
             PropertyValue = $nintexVersion.ToString()
         }
@@ -138,71 +131,128 @@ $discoveryData += @{
 
 #endregion Get Nintex Installation Info
 
-#region Get Nintex Database Info
-
-# Get the Nintex Workflow databases
-$databasesRaw = ( & $nwAdminExe.Source -o CheckDatabaseVersion ) -join "`n"
-$message = "`nNintex Workflow Databases:`n$databasesRaw"
-Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $message -DebugLogging:$debug
-
-if ( $databasesRaw -match 'Command line execution error: Failed to open a connection to the Nintex Workflow configuration database' )
+$configurationDatabase = [Nintex.Workflow.Administration.ConfigurationDatabase]::GetConfigurationDatabase()
+if ( [System.String]::IsNullOrEmpty($configurationDatabase.SQLConnectionString.ToString()) )
 {
-    # TODO: Add the database and instance or connection string info to the alert
-    $message = "NWAdmin was unable to open a connection to the Nintex Workflow configuration database. Ensure the RunAs account ($whoami) is a member of the 'WSS_Content_Application_Pools' database role."
-    Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 1 -Description $message -DebugLogging:$debug
-    exit
+    $message = "`nNo Nintex Configuration database is configured in the SharePoint farm '$($farm.Name)'."
+    Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 2 -Description $message -DebugLogging
 }
-
-# Parse the string into an object
-$databasesString = $databasesRaw -split "`n`n"
-foreach ( $databaseString in $databasesString )
+else
 {
-    $databaseProperties = $databaseString -split "`n"
-    $databaseConnectionString = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $databaseProperties[0]
-    $databaseType = $databaseProperties[1].Replace('Type: ','')
-    $databaseVersion = [System.Version]::new($databaseProperties[2].Replace('Version: ',''))
-    $databaseStatus = $databaseProperties[3]
+    #region Get Nintex Database Info
 
-     switch ( $databaseType )
-     {
-         Configuration { $discoveryType = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Configuration.Class"]$' }
-         Content { $discoveryType = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Content.Class"]$' }
-     }
+    $configurationDatabaseVersion = [Nintex.Workflow.Administration.ConfigurationDatabase]::DatabaseVersion
+    if ( $configurationDatabaseVersion -eq '0.0.0.0' )
+    {
+        $message = "`nThe configuration database version was detected as $configurationDatabaseVersion. This indicates the run-as account does not have permissions to the configuration database. Add the run-as account to the 'db_datareader' role in the configuration database."
+        Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 2 -Description $message -DebugLogging:$debug
+    }
 
-     $discoveryData += @{
-         DiscoveryType = $discoveryType
-         Properties = @(
+    $discoveryData += @{
+        DiscoveryType = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Configuration.Class"]$'
+        Properties = @(
+            @{
+                ClassName = 'Nintex.Workflow.SharePoint.CentralAdministration.Class'
+                PropertyInstance = '$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$'
+                PropertyName = 'PrincipalName'
+                PropertyValue = $PrincipalName
+            }
             @{
                 ClassName = 'Nintex.Workflow.SharePoint.Class'
-                PropertyInstance = $propertyInstance.Farm
+                PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]/Farm$'
                 PropertyName = 'Farm'
                 PropertyValue = $farm.Name
-             }    
+            }   
             @{
                 ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
-                PropertyInstance = $propertyInstance.InstanceName
+                PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/InstanceName$'
                 PropertyName = 'InstanceName'
-                PropertyValue = $databaseConnectionString.DataSource
-             }
-             @{
+                PropertyValue = $configurationDatabase.SQLConnectionString.DataSource
+            }
+            @{
                 ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
-                PropertyInstance = $propertyInstance.DatabaseName
+                PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseName$'
                 PropertyName = 'DatabaseName'
-                PropertyValue = $databaseConnectionString.InitialCatalog
-             }
-             @{
+                PropertyValue = $configurationDatabase.SQLConnectionString.InitialCatalog
+            }
+            @{
                 ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
-                PropertyInstance = $propertyInstance.Version
+                PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/Version$'
                 PropertyName = 'Version'
-                PropertyValue = $databaseVersion.ToString()
-             }
-         )
-     }
+                PropertyValue = $configurationDatabaseVersion
+            }
+        )
+    }
+
+    foreach ( $contentDatabase in $configurationDatabase.ContentDatabases )
+    {
+        $discoveryData += @{
+            DiscoveryType = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Content.Class"]$'
+            Properties = @(
+                @{
+                    ClassName = 'Nintex.Workflow.SharePoint.CentralAdministration.Class'
+                    PropertyInstance = '$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$'
+                    PropertyName = 'PrincipalName'
+                    PropertyValue = $PrincipalName
+                }
+                @{
+                    ClassName = 'Nintex.Workflow.SharePoint.Class'
+                    PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]/Farm$'
+                    PropertyName = 'Farm'
+                    PropertyValue = $farm.Name
+                    }    
+                @{
+                    ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
+                    PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/InstanceName$'
+                    PropertyName = 'InstanceName'
+                    PropertyValue = $contentDatabase.SQLConnectionString.DataSource
+                }
+                @{
+                    ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
+                    PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseName$'
+                    PropertyName = 'DatabaseName'
+                    PropertyValue = $contentDatabase.SQLConnectionString.InitialCatalog
+                }
+                @{
+                    ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
+                    PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/Version$'
+                    PropertyName = 'Version'
+                    PropertyValue = $contentDatabase.DatabaseVersion
+                }
+            )
+        }
+    }
+
+    #endregion Get Nintex Database Info
 }
 
-#endregion Get Nintex Database Info
 
 #region Create Discovery Data
+
+$discoveredString = New-Object -TypeName System.Text.StringBuilder
+$d = 1
+foreach ( $discovered in $discoveryData )
+{
+    $discoveredString.AppendLine("Discovered Item $d") > $null
+    $discoveredString.AppendLine("    - Discovery Type: $($discovered.DiscoveryType)") > $null
+    $discoveredString.AppendLine("    - Properties:") > $null
+
+    $p = 1
+    foreach ( $property in $discovered.Properties )
+    {
+        $discoveredString.AppendLine("        + Property $p") > $null
+        $discoveredString.AppendLine("            > ClassName: $($property.ClassName)") > $null
+        $discoveredString.AppendLine("            > PropertyInstance: $($property.PropertyInstance)") > $null
+        $discoveredString.AppendLine("            > PropertyName: $($property.PropertyName)") > $null
+        $discoveredString.AppendLine("            > PropertyValue: $($property.PropertyValue)") > $null
+        $discoveredString.AppendLine('') > $null
+        $p++
+    }
+
+    $discoveredString.AppendLine('') > $null
+    $d++
+}
+Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $discoveredString.ToString() -DebugLogging:$debug
 
 if (-not $TestRun)
 {
@@ -210,9 +260,6 @@ if (-not $TestRun)
 
     # Initialize SCOM discovery data object
     $scomDiscoveryData = $momapi.CreateDiscoveryData(0, $SourceId, $ManagedEntityId)
-
-    # Create an instance of the Nintex Workflow for SharePoint installation to create a relationship with the databases
-    #$installationInstance = $scomDiscoveryData.CreateClassInstance('$MPElement[Name="Nintex.Workflow.SharePoint.Class"]$')
 
     foreach ( $currentDiscoveryData in $discoveryData )
     {
@@ -243,31 +290,6 @@ $scriptTime = ($endTime - $startTime).TotalSeconds
 
 $message = "`n Script Completed. `n Script Runtime: ($scriptTime) seconds."
 Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $message -DebugLogging:$debug
-
-$discoveredString = New-Object -TypeName System.Text.StringBuilder
-$d = 1
-foreach ( $discovered in $discoveryData )
-{
-    $discoveredString.AppendLine("Discovered Item $d") > $null
-    $discoveredString.AppendLine("    - Discovery Type: $($discovered.DiscoveryType)") > $null
-    $discoveredString.AppendLine("    - Properties:") > $null
-
-    $p = 1
-    foreach ( $property in $discovered.Properties )
-    {
-        $discoveredString.AppendLine("        + Property $p") > $null
-        $discoveredString.AppendLine("            > ClassName: $($property.ClassName)") > $null
-        $discoveredString.AppendLine("            > PropertyInstance: $($property.PropertyInstance)") > $null
-        $discoveredString.AppendLine("            > PropertyName: $($property.PropertyName)") > $null
-        $discoveredString.AppendLine("            > PropertyValue: $($property.PropertyValue)") > $null
-        $discoveredString.AppendLine('') > $null
-        $p++
-    }
-
-    $discoveredString.AppendLine('') > $null
-    $d++
-}
-Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $discoveredString.ToString() -DebugLogging:$debug
 
 if ($TestRun)
 {

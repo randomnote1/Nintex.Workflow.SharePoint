@@ -2,7 +2,7 @@
   <TypeDefinitions>
     <EntityTypes>
       <ClassTypes>
-        <ClassType ID="Nintex.Workflow.SharePoint.Class" Accessibility="Public" Abstract="false" Base="System!System.LogicalEntity" Hosted="false" Singleton="false">
+        <ClassType ID="Nintex.Workflow.SharePoint.Class" Accessibility="Public" Abstract="false" Base="Windows!Microsoft.Windows.LocalApplication" Hosted="true" Singleton="false">
           <Property ID="Farm" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
           <Property ID="Version" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="50" MinLength="0" Required="false" Scale="0" />
         </ClassType>
@@ -25,7 +25,6 @@
           <Description>The version of Nintex Workflow for SharePoint which is installed.</Description>
         </DisplayString>
       </DisplayStrings>
-      <KnowledgeArticles></KnowledgeArticles>
     </LanguagePack>
   </LanguagePacks>
 </ManagementPackFragment>

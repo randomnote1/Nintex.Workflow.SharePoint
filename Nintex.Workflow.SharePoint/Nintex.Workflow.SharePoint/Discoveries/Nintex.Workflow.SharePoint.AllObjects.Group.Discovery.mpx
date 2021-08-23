@@ -1,0 +1,44 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Nintex.Workflow.SharePoint.AllObjects.Group.Discovery" Enabled="true" Target="Nintex.Workflow.SharePoint.AllObjects.Group" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryRelationship TypeID="MSIL!Microsoft.SystemCenter.InstanceGroupContainsEntities" />
+        </DiscoveryTypes>
+        <DataSource ID="GroupPopulationDataSource" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+          <RuleId>$MPElement$</RuleId>
+          <GroupInstanceId>$MPElement[Name="Nintex.Workflow.SharePoint.AllObjects.Group"]$</GroupInstanceId>
+          <MembershipRules>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Nintex.Workflow.SharePoint.Class"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Nintex.Workflow.SharePoint.Database.Configuration.Class"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Nintex.Workflow.SharePoint.Database.Content.Class"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            </MembershipRule>
+          </MembershipRules>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.AllObjects.Group.Discovery">
+          <Name>Nintex Workflow for SharePoint All Objects Group Discovery</Name>
+          <Description>Gets all of the objects associated with Nintex Workflow for SharePoint and adds them to a group.</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

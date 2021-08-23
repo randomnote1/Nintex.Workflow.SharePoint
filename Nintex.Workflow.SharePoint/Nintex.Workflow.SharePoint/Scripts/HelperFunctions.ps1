@@ -61,7 +61,7 @@ function Connect-SQL
 
     try 
     {
-        Write-Verbose "Opening connection to '$ServerName'"
+        Write-Verbose "Opening connection to '$($builder.DataSource)'"
         $sqlConnectionObject.Open()
     }
     catch
@@ -375,7 +375,7 @@ function Write-OperationsManagerEvent
         $TestRun
     )
 
-    if ($debug)
+    if ($DebugLogging.IsPresent)
     {
         if (-not $TestRun)
         {
@@ -383,5 +383,25 @@ function Write-OperationsManagerEvent
         }
 
         Write-Debug -Message $message
+    }
+}
+
+function Import-NintexWorkflowAssembly
+{
+    [CmdletBinding()]
+    param
+    ()
+
+    $assemblyString = 'Nintex.Workflow, Version=1.0.0.0, Culture=neutral, PublicKeyToken=913f6bae0ca5ae12'
+
+    try
+    {
+        [System.Reflection.Assembly]::Load($assemblyString) > $null
+    }
+    catch
+    {
+        $message = "Failed to load the Nintex Workflow assembly: $assemblyString"
+        Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 1 -Description $message -DebugLogging
+        exit
     }
 }

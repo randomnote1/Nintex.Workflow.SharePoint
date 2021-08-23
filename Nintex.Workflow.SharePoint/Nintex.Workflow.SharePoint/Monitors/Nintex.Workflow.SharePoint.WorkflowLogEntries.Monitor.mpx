@@ -1,0 +1,101 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Monitors>
+      <UnitMonitor ID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor" Accessibility="Public" Enabled="true" Target="Nintex.Workflow.SharePoint.Database.Configuration.Class" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal" TypeID="Nintex.Workflow.SharePoint.WorkflowLogEntries.MonitorType" ConfirmDelivery="true">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <!-- Warning or Error should match OperationalStates below  -->
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <!-- Common options for AlertSeverity are MatchMonitorHealth, Information, Warning, Error -->
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="Nintex.Workflow.SharePoint.Class"]/Farm$</AlertParameter1>
+            <AlertParameter2>$Target/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter2>
+            <AlertParameter3>$Data/Context/Property[@Name='AlertDetails']$</AlertParameter3>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="GoodCondition" MonitorTypeStateID="GoodCondition" HealthState="Success" />
+          <OperationalState ID="WarningCondition" MonitorTypeStateID="WarningCondition" HealthState="Warning" />
+          <OperationalState ID="ErrorCondition" MonitorTypeStateID="ErrorCondition" HealthState="Error" />
+          <!-- HealthState = Warning or Error -->
+        </OperationalStates>
+        <Configuration>
+          <IntervalSeconds>86400</IntervalSeconds>
+          <SyncTime></SyncTime>
+          <TimeoutSeconds>120</TimeoutSeconds>
+          <WarningThreshold>1500000</WarningThreshold>
+          <CriticalThreshold>1750000</CriticalThreshold>
+          <DebugLogging>false</DebugLogging>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+  </Monitoring>
+  <Presentation>
+    <StringResources>
+      <StringResource ID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor.AlertMessage" />
+    </StringResources>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor">
+          <Name>Nintex Workflow Log Entries</Name>
+          <Description>Monitors the number of log entries which exist for each Nintex workflow.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor" SubElementID="GoodCondition">
+          <Name>Healthy</Name>
+          <Description>The number of log entries for each Nintex workflow is below the defined threshold.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor" SubElementID="WarningCondition">
+          <Name>Warning</Name>
+          <Description>The number of log entries for each Nintex workflow is above the defined warning threshold.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor" SubElementID="ErrorCondition">
+          <Name>Critical</Name>
+          <Description>The number of log entries for each Nintex workflow is above the defined critical threshold.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor.AlertMessage">
+          <Name>Number of log entries for Nintex workflows is above the defined threshold</Name>
+          <Description>
+Number of log entries for one or more Nintex workflows is above the defined threshold.
+
+Farm: {0}
+Configuration Database: {1}
+Workflow Details:
+
+{2}
+          </Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>Monitors the number of log entries which exist for each Nintex workflow.</maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Causes</maml:title>
+              <maml:list>
+                <maml:listItem>
+                  <maml:para>The workflow author left debug logging on.</maml:para>
+                </maml:listItem>
+              </maml:list>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Resolutions</maml:title>
+              <maml:list>
+                <maml:listItem>
+                  <maml:para>Remove logging from the workflow.</maml:para>
+                </maml:listItem>
+              </maml:list>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

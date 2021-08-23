@@ -1,0 +1,76 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <ProbeActionModuleType ID="Nintex.Workflow.SharePoint.WorkflowHealth.ProbeAction" Accessibility="Internal" Batching="false" PassThrough="false" RunAs="SPLibrary!Microsoft.SharePoint.Library.AdminAccount">
+        <Configuration>
+          <xsd:element name="TimeoutSeconds" type="xsd:integer" minOccurs="1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="WarningThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="CriticalThreshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="DebugLogging" type="xsd:boolean" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="WarningThreshold" Selector="$Config/WarningThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="CriticalThreshold" Selector="$Config/CriticalThreshold$" ParameterType="int" />
+          <OverrideableParameter ID="DebugLogging" Selector="$Config/DebugLogging$" ParameterType="bool" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <ProbeAction ID="Probe" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagTriggerOnlyProbe">
+                <ScriptName>Get-NintexWorkflowHealth.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/Get-NintexWorkflowHealth.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>WarningThreshold</Name>
+                    <Value>$Config/WarningThreshold$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>CriticalThreshold</Name>
+                    <Value>$Config/CriticalThreshold$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>DebugLogging</Name>
+                    <Value>$Config/DebugLogging$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+                <StrictErrorHandling>false</StrictErrorHandling>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Probe" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+        <TriggerOnly>true</TriggerOnly>
+      </ProbeActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowHealth.ProbeAction">
+          <Name>Nintex Workflow for SharePoint Workflow Health Probe Action</Name>
+          <Description>Nintex Workflow for SharePoint Workflow Health Probe Action</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowHealth.ProbeAction" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowHealth.ProbeAction" SubElementID="WarningThreshold">
+          <Name>WarningThreshold</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowHealth.ProbeAction" SubElementID="CriticalThreshold">
+          <Name>CriticalThreshold</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.WorkflowHealth.ProbeAction" SubElementID="DebugLogging">
+          <Name>Debug Logging</Name>
+          <Description>Enable debug logging to the event log.</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

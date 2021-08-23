@@ -13,8 +13,8 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Nintex.Workflow.SharePoint.Hosts.Database.Relationship">
-          <Name>Nintex Workflow for SharePoint Hosts Databases</Name>
-          <Description>Describes the relationship between Nintex Workflow for SharePoint and its databases.</Description>
+          <Name>Nintex Workflow for SharePoint Configuration Database Hosts Databases</Name>
+          <Description>Describes the relationship between Nintex Workflow for SharePoint its databases.</Description>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

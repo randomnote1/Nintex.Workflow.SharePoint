@@ -1,8 +1,8 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TypeDefinitions>
     <ModuleTypes>
-      <DataSourceModuleType ID="Nintex.Workflow.SharePoint.Discovery.DataSource" Accessibility="Internal" Batching="false" RunAs="SPLibrary!Microsoft.SharePoint.Library.AdminAccount">
-      <!--<DataSourceModuleType ID="Nintex.Workflow.SharePoint.Discovery.DataSource" Accessibility="Internal" Batching="false" RunAs="Nintex.Workflow.SharePoint.RunasProfile">-->
+      <DataSourceModuleType ID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" Accessibility="Internal" Batching="false" RunAs="SPLibrary!Microsoft.SharePoint.Library.AdminAccount">
+      <!--<DataSourceModuleType ID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" Accessibility="Internal" Batching="false" RunAs="Nintex.Workflow.SharePoint.RunasProfile">-->
         <Configuration>
           <xsd:element name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
           <xsd:element name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
@@ -21,8 +21,8 @@
               <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.TimedPowerShell.DiscoveryProvider">
                 <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
                 <SyncTime>$Config/SyncTime$</SyncTime>
-                <ScriptName>Invoke-NintexWorkflowSharePointDiscovery.ps1</ScriptName>
-                <ScriptBody>$IncludeFileContent/Scripts/Invoke-NintexWorkflowSharePointDiscovery.ps1$</ScriptBody>
+                <ScriptName>Get-SharePointCentralAdminServer.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/Get-SharePointCentralAdminServer.ps1$</ScriptBody>
                 <Parameters>
                   <Parameter>
                     <Name>SourceID</Name>
@@ -33,7 +33,7 @@
                     <Value>$Target/Id$</Value>
                   </Parameter>
                   <Parameter>
-                    <Name>PrincipalName</Name>
+                    <Name>HostServer</Name>
                     <Value>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
                   </Parameter>
                   <Parameter>
@@ -53,30 +53,4 @@
       </DataSourceModuleType>
     </ModuleTypes>
   </TypeDefinitions>
-  <LanguagePacks>
-    <LanguagePack ID="ENU" IsDefault="true">
-      <DisplayStrings>
-        <DisplayString ElementID="Nintex.Workflow.SharePoint.Discovery.DataSource">
-          <Name>Nintex Workflow for SharePoint Discovery Data Source</Name>
-          <Description>The datasource for the Nintex Workflow for SharePoint discovery.</Description>
-        </DisplayString>
-        <DisplayString ElementID="Nintex.Workflow.SharePoint.Discovery.DataSource" SubElementID="IntervalSeconds">
-          <Name>Interval Seconds</Name>
-          <Description>How frequently to run the discovery.</Description>
-        </DisplayString>
-        <DisplayString ElementID="Nintex.Workflow.SharePoint.Discovery.DataSource" SubElementID="SyncTime">
-          <Name>Sync Time</Name>
-          <Description>The time of day to sync the discovery to run.</Description>
-        </DisplayString>
-        <DisplayString ElementID="Nintex.Workflow.SharePoint.Discovery.DataSource" SubElementID="TimeoutSeconds">
-          <Name>Timeout Seconds</Name>
-          <Description>How long to wait for the script to complete.</Description>
-        </DisplayString>
-        <DisplayString ElementID="Nintex.Workflow.SharePoint.Discovery.DataSource" SubElementID="DebugLogging">
-          <Name>Debug Logging</Name>
-          <Description>Enable debug logging to the event log.</Description>
-        </DisplayString>
-      </DisplayStrings>
-    </LanguagePack>
-  </LanguagePacks>
 </ManagementPackFragment>

@@ -1,0 +1,16 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Categories>
+    <Category ID="Nintex.Workflow.SharePoint.Database.Image16.Category" Target="Nintex.Workflow.SharePoint.Database.Image16" Value="System!System.Internal.ManagementPack.Images.u16x16Icon" />
+    <Category ID="Nintex.Workflow.SharePoint.Database.Image80.Category" Target="Nintex.Workflow.SharePoint.Database.Image80" Value="System!System.Internal.ManagementPack.Images.DiagramIcon" />
+  </Categories>
+  <Presentation>
+    <ImageReferences>
+      <ImageReference ElementID="Nintex.Workflow.SharePoint.Database.Class" ImageID="Nintex.Workflow.SharePoint.Database.Image16"/>
+      <ImageReference ElementID="Nintex.Workflow.SharePoint.Database.Class" ImageID="Nintex.Workflow.SharePoint.Database.Image80"/>
+    </ImageReferences>
+  </Presentation>
+  <Resources>
+    <Image ID="Nintex.Workflow.SharePoint.Database.Image16" Accessibility="Public" FileName="Nintex.Workflow.SharePoint.Database.Image16.png" HasNullStream="false" Comment="Nintex Workflow for SharePoint Database Icon Small"/>
+    <Image ID="Nintex.Workflow.SharePoint.Database.Image80" Accessibility="Public" FileName="Nintex.Workflow.SharePoint.Database.Image80.png" HasNullStream="false" Comment="Nintex Workflow for SharePoint Database Icon Diagram"/>
+  </Resources>
+</ManagementPackFragment>
