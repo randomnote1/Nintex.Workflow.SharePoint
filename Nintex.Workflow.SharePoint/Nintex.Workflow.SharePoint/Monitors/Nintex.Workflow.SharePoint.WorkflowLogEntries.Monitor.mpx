@@ -1,7 +1,7 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Monitoring>
     <Monitors>
-      <UnitMonitor ID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor" Accessibility="Public" Enabled="true" Target="Nintex.Workflow.SharePoint.Database.Configuration.Class" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal" TypeID="Nintex.Workflow.SharePoint.WorkflowLogEntries.MonitorType" ConfirmDelivery="true">
+      <UnitMonitor ID="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor" Accessibility="Public" Enabled="true" Target="Nintex.Workflow.SharePoint.Class" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal" TypeID="Nintex.Workflow.SharePoint.WorkflowLogEntries.MonitorType" ConfirmDelivery="true">
         <Category>PerformanceHealth</Category>
         <AlertSettings AlertMessage="Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor.AlertMessage">
           <AlertOnState>Error</AlertOnState>
@@ -11,9 +11,8 @@
           <AlertSeverity>MatchMonitorHealth</AlertSeverity>
           <!-- Common options for AlertSeverity are MatchMonitorHealth, Information, Warning, Error -->
           <AlertParameters>
-            <AlertParameter1>$Target/Host/Property[Type="Nintex.Workflow.SharePoint.Class"]/Farm$</AlertParameter1>
-            <AlertParameter2>$Target/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter2>
-            <AlertParameter3>$Data/Context/Property[@Name='AlertDetails']$</AlertParameter3>
+            <AlertParameter1>$Target/Property[Type="Nintex.Workflow.SharePoint.Class"]/Farm$</AlertParameter1>
+            <AlertParameter2>$Data/Context/Property[@Name='AlertDetails']$</AlertParameter2>
           </AlertParameters>
         </AlertSettings>
         <OperationalStates>
@@ -63,10 +62,9 @@
 Number of log entries for one or more Nintex workflows is above the defined threshold.
 
 Farm: {0}
-Configuration Database: {1}
 Workflow Details:
 
-{2}
+{1}
           </Description>
         </DisplayString>
       </DisplayStrings>

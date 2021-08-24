@@ -3,9 +3,10 @@
     <EntityTypes>
       <ClassTypes>
         <ClassType ID="Nintex.Workflow.SharePoint.Database.Class" Accessibility="Public" Abstract="false" Base="Windows!Microsoft.Windows.ApplicationComponent" Hosted="true" Singleton="false">
-          <Property ID="InstanceName" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
-          <Property ID="DatabaseName" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="InstanceName" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="true" Scale="0" />
+          <Property ID="DatabaseName" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="true" Scale="0" />
           <Property ID="Version" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="50" MinLength="0" Required="false" Scale="0" />
+          <Property ID="DatabaseId" Type="int" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="2" MinLength="0" Required="true" Scale="0" />
         </ClassType>
       </ClassTypes>
     </EntityTypes>
@@ -18,16 +19,20 @@
           <Description>A Nintex Workflow for SharePoint database.</Description>
         </DisplayString>
         <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Class" SubElementID="InstanceName">
-          <Name>InstanceName</Name>
+          <Name>Instance Name</Name>
           <Description>The SQL Server instance the database is installed in.</Description>
         </DisplayString>
         <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Class" SubElementID="DatabaseName">
-          <Name>DatabaseName</Name>
+          <Name>Database Name</Name>
           <Description>The name of the Nintex Workflow for SharePoint database.</Description>
         </DisplayString>
         <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Class" SubElementID="Version">
           <Name>Version</Name>
           <Description>The version of the Nintex Workflow for SharePoint database.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Class" SubElementID="DatabaseId">
+          <Name>Database ID</Name>
+          <Description>The ID of the Nintex Workflow for SharePoint database.</Description>
         </DisplayString>
       </DisplayStrings>
       <KnowledgeArticles></KnowledgeArticles>

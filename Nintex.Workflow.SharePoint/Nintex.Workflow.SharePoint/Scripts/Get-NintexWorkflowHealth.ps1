@@ -89,14 +89,6 @@ Import-NintexWorkflowAssembly
 
 #region get workflow log entries
 
-#$defaultZone = [Microsoft.SharePoint.Administration.SPUrlZone]::Default
-
-# Get the installed web apps for the farm
-#$waps = Get-SPWebApplication -IncludeCentralAdministration
-
-# Build a string of web app IDs to pass into the query
-#$wapIdsString = "'$(( $waps | Select-Object -ExpandProperty Id ) -join "', '")'"
-
 $getLogEntriesPerWorkflowCountQuery = @'
 SELECT
 	[w].[WebApplicationId],
@@ -240,11 +232,12 @@ if ( $healthState -ne 'Healthy' )
                 
         foreach ( $criticalStat in $criticalStats )
         {
-            $alertDetails.AppendLine("    - $($criticalStat.HealthState)") > $null
+            $alertDetails.AppendLine('')
+            $alertDetails.AppendLine("`t- $($criticalStat.HealthState)") > $null
                     
             foreach ( $property in $selectProperties )
             {
-                $alertDetails.AppendLine("        > $($criticalStat.$property)") > $null
+                $alertDetails.AppendLine("`t`t> $($property): $($criticalStat.$property)") > $null
             }
         }
     }
@@ -257,11 +250,12 @@ if ( $healthState -ne 'Healthy' )
                 
         foreach ( $warningStat in $warningStats )
         {
-            $alertDetails.AppendLine("    - $($warningStat.HealthState)") > $null
+            $alertDetails.AppendLine('')
+            $alertDetails.AppendLine("`t- $($warningStat.HealthState)") > $null
                     
             foreach ( $property in $selectProperties )
             {
-                $alertDetails.AppendLine("        > $($property): $($warningStat.$property)") > $null
+                $alertDetails.AppendLine("`t`t> $($property): $($warningStat.$property)") > $null
             }
         }
     }

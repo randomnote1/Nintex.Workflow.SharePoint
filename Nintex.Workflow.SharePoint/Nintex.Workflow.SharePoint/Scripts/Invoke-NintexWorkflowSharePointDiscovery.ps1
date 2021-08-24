@@ -115,6 +115,12 @@ $discoveryData += @{
             PropertyValue = $PrincipalName
         }
         @{
+            ClassName = 'System.Entity'
+            PropertyInstance = '$MPElement[Name="System!System.Entity"]/DisplayName$'
+            PropertyName = 'DisplayName'
+            PropertyValue = $farm.Name
+        }
+        @{
             ClassName = 'Nintex.Workflow.SharePoint.Class'
             PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]/Farm$'
             PropertyName = 'Farm'
@@ -170,6 +176,12 @@ else
                 PropertyValue = $configurationDatabase.SQLConnectionString.DataSource
             }
             @{
+                ClassName = 'System.Entity'
+                PropertyInstance = '$MPElement[Name="System!System.Entity"]/DisplayName$'
+                PropertyName = 'DisplayName'
+                PropertyValue = $configurationDatabase.SQLConnectionString.InitialCatalog
+            }
+            @{
                 ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
                 PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseName$'
                 PropertyName = 'DatabaseName'
@@ -180,6 +192,12 @@ else
                 PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/Version$'
                 PropertyName = 'Version'
                 PropertyValue = $configurationDatabaseVersion
+            }
+            @{
+                ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
+                PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseId$'
+                PropertyName = 'DatabaseId'
+                PropertyValue = 0
             }
         )
     }
@@ -200,12 +218,18 @@ else
                     PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Class"]/Farm$'
                     PropertyName = 'Farm'
                     PropertyValue = $farm.Name
-                    }    
+                }
                 @{
                     ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
                     PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/InstanceName$'
                     PropertyName = 'InstanceName'
                     PropertyValue = $contentDatabase.SQLConnectionString.DataSource
+                }
+                @{
+                    ClassName = 'System.Entity'
+                    PropertyInstance = '$MPElement[Name="System!System.Entity"]/DisplayName$'
+                    PropertyName = 'DisplayName'
+                    PropertyValue = $contentDatabase.SQLConnectionString.InitialCatalog
                 }
                 @{
                     ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
@@ -218,6 +242,12 @@ else
                     PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/Version$'
                     PropertyName = 'Version'
                     PropertyValue = $contentDatabase.DatabaseVersion
+                }
+                @{
+                    ClassName = 'Nintex.Workflow.SharePoint.Database.Class'
+                    PropertyInstance = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseId$'
+                    PropertyName = 'DatabaseId'
+                    PropertyValue = $contentDatabase.DatabaseId
                 }
             )
         }
