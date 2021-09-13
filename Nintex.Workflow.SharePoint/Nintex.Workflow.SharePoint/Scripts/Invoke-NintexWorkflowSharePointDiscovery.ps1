@@ -150,7 +150,7 @@ else
     $configurationDatabaseVersion = [Nintex.Workflow.Administration.ConfigurationDatabase]::DatabaseVersion
     if ( $configurationDatabaseVersion -eq '0.0.0.0' )
     {
-        $message = "`nThe configuration database version was detected as $configurationDatabaseVersion. This indicates the run-as account does not have permissions to the configuration database. Add the run-as account to the 'db_datareader' role in the configuration database."
+        $message = "`nThe configuration database version was detected as $configurationDatabaseVersion. This indicates the run-as account does not have permissions to the configuration database. Add the run-as account to the 'WSS_Content_Application_Pools' role in the configuration database."
         Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 2 -Description $message -DebugLogging:$debug
     }
 
@@ -204,6 +204,12 @@ else
 
     foreach ( $contentDatabase in $configurationDatabase.ContentDatabases )
     {
+        if ( [System.String]::IsNullOrEmpty($contentDatabase.DatabaseVersion) )
+        {
+            $message = "`nThe content database '$($contentDatabase.SQLConnectionString.InitialCatalog)' was not discovered. This indicates the run-as account does not have permissions to the content database. Add the run-as account to the 'WSS_Content_Application_Pools' role in the content database."
+            Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 2 -Description $message -DebugLogging:$debug
+        }
+        
         $discoveryData += @{
             DiscoveryType = '$MPElement[Name="Nintex.Workflow.SharePoint.Database.Content.Class"]$'
             Properties = @(

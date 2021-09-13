@@ -93,7 +93,7 @@
           <Name>Nintex Workflow configuration database is not configured</Name>
         </DisplayString>
         <DisplayString ElementID="Nintex.Workflow.SharePoint.Discovery.WarningEvents.AlertMessage">
-          <Name>Nintex Workflow configuration database is not configured</Name>
+          <Name>Nintex Workflow Discovery Failure</Name>
           <Description>{0}</Description>
         </DisplayString>
       </DisplayStrings>

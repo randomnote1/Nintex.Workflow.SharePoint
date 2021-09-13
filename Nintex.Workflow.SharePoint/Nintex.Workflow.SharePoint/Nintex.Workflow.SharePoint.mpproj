@@ -172,9 +172,6 @@
     <Compile Include="Resources\Nintex.Workflow.SharePoint.Image.mpx">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Rules\Nintex.Workflow.SharePoint.FailedToConnectToConfigurationDatabase.mpx">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Rules\Nintex.Workflow.SharePoint.Discovery.WarningEvents.mpx">
       <SubType>Code</SubType>
     </Compile>
