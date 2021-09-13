@@ -103,6 +103,12 @@
     <Compile Include="DataSources\Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataSources\Nintex.Workflow.SharePoint.Database.Health.DataSource.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataSources\Nintex.Workflow.SharePoint.Database.Health.Version.DataSource.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataSources\Nintex.Workflow.SharePoint.Discovery.DataSource.mpx">
       <SubType>Code</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     <Compile Include="ManagementPack.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Monitors\Nintex.Workflow.SharePoint.Database.Health.Version.Monitor.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Monitors\Nintex.Workflow.SharePoint.WorkflowLogEntries.Monitor.mpx">
       <SubType>Code</SubType>
     </Compile>
@@ -143,6 +152,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Presentation\Nintex.Workflow.SharePoint.State.View.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProbeActions\Nintex.Workflow.SharePoint.Database.Health.ProbeAction.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ProbeActions\Nintex.Workflow.SharePoint.WorkflowHealth.ProbeAction.mpx">
@@ -169,6 +181,9 @@
     <Compile Include="SecureReferences\Nintex.Workflow.SharePoint.RunasProfile.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Types\Nintex.Workflow.SharePoint.Database.Health.Version.MonitorType.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Types\Nintex.Workflow.SharePoint.WorkflowLogEntries.MonitorType.mpx">
       <SubType>Code</SubType>
     </Compile>
@@ -179,7 +194,6 @@
     <EmbeddedResource Include="Scripts\Get-SharePointCentralAdminServer.ps1" />
     <EmbeddedResource Include="Scripts\HelperFunctions.ps1" />
     <EmbeddedResource Include="Scripts\Invoke-NintexWorkflowSharePointDiscovery.ps1" />
-    <EmbeddedResource Include="Scripts\Set-NintexWorkflowForSharePointRunAsProfile.ps1" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\Nintex.Workflow.SharePoint.Image16.png">

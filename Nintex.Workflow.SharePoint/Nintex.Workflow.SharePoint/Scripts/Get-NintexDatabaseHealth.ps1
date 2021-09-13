@@ -1,13 +1,5 @@
 ﻿param
 (
-    [Parameter(Mandatory = $true)]
-    [System.Int32]
-    $WarningThreshold,
-
-    [Parameter(Mandatory = $true)]
-    [System.Int32]
-    $CriticalThreshold,
-
     [Parameter()]
 	[System.String]
 	$DebugLogging = 'false',
@@ -39,7 +31,7 @@ else
     . $helperFunctionsPath
 }
 
-$scriptName = 'Get-NintexWorkflowHealth.ps1'
+$scriptName = 'Get-NintexDatabaseHealth.ps1'
 $scriptEventID = 17083 # randomly generated for this script
 
 # Gather the start time of the script
@@ -119,7 +111,7 @@ if ( $databasesRaw -match 'Command line execution error: Failed to open a connec
 
 # Parse the string into an object
 $databasesString = $databasesRaw -split "`n`n"
-$returnValues = @()
+$results = @()
 foreach ( $databaseString in $databasesString )
 {
     $databaseProperties = $databaseString -split "`n"
@@ -127,6 +119,12 @@ foreach ( $databaseString in $databasesString )
     $databaseType = $databaseProperties[1].Replace('Type: ','')
     $databaseVersion = [System.Version]::new($databaseProperties[2].Replace('Version: ',''))
     $databaseStatus = $databaseProperties[3]
+    $health = 'Healthy'
+
+    if ( $databaseStatus -match '^Requires update' )
+    {
+        $health = 'Critical'
+    }
 
     switch ( $databaseType )
     {
@@ -139,15 +137,16 @@ foreach ( $databaseString in $databasesString )
         {
             $contentDatabase = $configurationDatabase.ContentDatabases |
                 Where-Object -FilterScript { $_.SqlConnectionString.DataSource -eq $databaseConnectionString.DataSource -and $_.SqlConnectionString.InitialCatalog -eq $databaseConnectionString.InitialCatalog }
-            $databaseId = $configurationDatabase.DatabaseId
+            $databaseId = $contentDatabase.DatabaseId
         }
     }
 
-    $returnValues += @{
+    $results += @{
         InstanceName = $databaseConnectionString.DataSource
         DatabaseName = $databaseConnectionString.InitialCatalog
         DatabaseVersionStatus = $databaseStatus
         DatabaseId = $databaseId
+        Health = $health
         Monitor = 'Nintex.Workflow.SharePoint.Database.Version'
     }
 }
@@ -170,3 +169,35 @@ WHERE [WebApplicationId] NOT IN ({0})
 
 ### Web Exists check
 #>
+
+if ( $debug )
+{
+	$i = 0
+	$bagsString = $results | ForEach-Object -Process { $i++; $_.GetEnumerator() } | ForEach-Object -Process { "`nBag $i : $($_.Key) => $($_.Value)" }
+	$message = "`nProperty bag values: $bagsString"
+    Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $message -DebugLogging:$debug
+}
+
+if ( -not $TestRun.IsPresent )
+{
+    foreach ( $result in $results )
+    {
+	    # Create and fill the property bag
+	    $bag = $momapi.CreatePropertyBag()
+	    foreach ( $returnValue in $result.GetEnumerator() )
+	    {
+		    $bag.AddValue($returnValue.Key,$returnValue.Value)
+	    }
+
+	    # Return the property bag
+	    #$momapi.Return($bag)
+	    $bag
+    }
+}
+
+# Log an event for script ending and total execution time.
+$endTime = Get-Date
+$scriptTime = ($endTime - $startTime).TotalSeconds
+
+$message = "`n Script Completed. `n Script Runtime: ($scriptTime) seconds."
+Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $message -DebugLogging:$debug

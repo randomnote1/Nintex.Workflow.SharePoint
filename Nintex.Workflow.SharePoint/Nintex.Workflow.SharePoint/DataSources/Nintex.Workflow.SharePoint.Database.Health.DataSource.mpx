@@ -1,0 +1,69 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="Nintex.Workflow.SharePoint.Database.Health.DataSource" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="SyncTime" type="xsd:string" minOccurs="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="TimeoutSeconds" type="xsd:integer" minOccurs="1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="DebugLogging" type="xsd:boolean" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="DebugLogging" Selector="$Config/DebugLogging$" ParameterType="bool" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval Unit="Seconds">$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Nintex.Workflow.SharePoint.Database.Health.ProbeAction">
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+                <DebugLogging>$Config/DebugLogging$</DebugLogging>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Probe">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+      </DataSourceModuleType>
+    </ModuleTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.DataSource">
+          <Name>Nintex Workflow for SharePoint Database Health Data Source</Name>
+          <Description>Nintex Workflow for SharePoint Database Health Data Source</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.DataSource" SubElementID="IntervalSeconds">
+          <Name>Interval Seconds</Name>
+          <Description>How frequently to run the probe action.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.DataSource" SubElementID="DebugLogging">
+          <Name>Debug Logging</Name>
+          <Description>Enable debug logging to the event log.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.DataSource" SubElementID="SyncTime">
+          <Name>Sync Time</Name>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.DataSource" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

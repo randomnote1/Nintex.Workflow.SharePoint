@@ -1,0 +1,95 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Monitors>
+      <UnitMonitor ID="Nintex.Workflow.SharePoint.Database.Health.Version.Monitor" Accessibility="Public" Enabled="true" Target="Nintex.Workflow.SharePoint.Database.Class" ParentMonitorID="Health!System.Health.ConfigurationState" Remotable="true" Priority="Normal" TypeID="Nintex.Workflow.SharePoint.Database.Health.Version.MonitorType" ConfirmDelivery="true">
+        <Category>ConfigurationHealth</Category>
+        <AlertSettings AlertMessage="Nintex.Workflow.SharePoint.Database.Health.Version.Monitor.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <!-- Warning or Error should match OperationalStates below  -->
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <!-- Common options for AlertSeverity are MatchMonitorHealth, Information, Warning, Error -->
+          <AlertParameters>
+            <AlertParameter1>$Target/Property[Type="Nintex.Workflow.SharePoint.Database.Class"]/InstanceName$</AlertParameter1>
+            <AlertParameter2>$Target/Property[Type="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseName$</AlertParameter2>
+            <AlertParameter3>$Data/Context/Property[@Name='DatabaseVersionStatus']$</AlertParameter3>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="GoodCondition" MonitorTypeStateID="GoodCondition" HealthState="Success" />
+          <OperationalState ID="ErrorCondition" MonitorTypeStateID="ErrorCondition" HealthState="Error" />
+          <!-- HealthState = Warning or Error -->
+        </OperationalStates>
+        <Configuration>
+          <IntervalSeconds>14400</IntervalSeconds>
+          <SyncTime></SyncTime>
+          <TimeoutSeconds>120</TimeoutSeconds>
+          <DebugLogging>false</DebugLogging>
+          <InstanceName>$Target/Property[Type="Nintex.Workflow.SharePoint.Database.Class"]/InstanceName$</InstanceName>
+          <DatabaseName>$Target/Property[Type="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseName$</DatabaseName>
+          <DatabaseId>$Target/Property[Type="Nintex.Workflow.SharePoint.Database.Class"]/DatabaseId$</DatabaseId>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+  </Monitoring>
+  <Presentation>
+    <StringResources>
+      <StringResource ID="Nintex.Workflow.SharePoint.Database.Health.Version.Monitor.AlertMessage" />
+    </StringResources>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.Version.Monitor">
+          <Name>Nintex Workflow for SharePoint Database Version</Name>
+          <Description>Determines if the database is up to date or needs upgraded.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.Version.Monitor" SubElementID="GoodCondition">
+          <Name>Healthy</Name>
+          <Description>The database is up to date.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.Version.Monitor" SubElementID="ErrorCondition">
+          <Name>Unhealthy</Name>
+          <Description>The needs to be upgraded.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.Database.Health.Version.Monitor.AlertMessage">
+          <Name>Nintex Workflow database is not up to date</Name>
+          <Description>
+The Nintex Workflow for SharePoint database "{1}" requires an update.
+
+Instance: {0}
+Database: {1}
+Message: {2}
+          </Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Nintex.Workflow.SharePoint.Database.Health.Version.Monitor" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>Monitors a Nintex Workflow for Sharepoint database to determine if the version is up to date.</maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Causes</maml:title>
+              <maml:list>
+                <maml:listItem>
+                  <maml:para>Nintex Workflow for SharePoint was upgraded and the database was not upgraded.</maml:para>
+                </maml:listItem>
+                <maml:listItem>
+                  <maml:para>A Nintex Workflow for SharePoint database was attached from another SharePoint farm and was not upgraded.</maml:para>
+                </maml:listItem>
+              </maml:list>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Resolutions</maml:title>
+              <maml:para>Execute the following command on the SharePoint Central Administration server in the SharePoint Management Shell.</maml:para>
+              <maml:para>nwadmin.exe -o UpgradeDatabases</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

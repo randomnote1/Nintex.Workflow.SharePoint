@@ -53,4 +53,30 @@
       </DataSourceModuleType>
     </ModuleTypes>
   </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource">
+          <Name>SharePoint Central Administration Discovery Data Source</Name>
+          <Description>SharePoint Central Administration Discovery Data Source</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" SubElementID="IntervalSeconds">
+          <Name>Interval Seconds</Name>
+          <Description>How frequently to run the discovery.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" SubElementID="SyncTime">
+          <Name>Sync Time</Name>
+          <Description>The time of day to sync the discovery to run.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+          <Description>How long to wait for the script to complete.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" SubElementID="DebugLogging">
+          <Name>Debug Logging</Name>
+          <Description>Enable debug logging to the event log.</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
 </ManagementPackFragment>
