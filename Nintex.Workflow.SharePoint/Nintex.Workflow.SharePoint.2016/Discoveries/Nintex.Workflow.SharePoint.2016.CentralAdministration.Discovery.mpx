@@ -1,0 +1,38 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Nintex.Workflow.SharePoint.2016.CentralAdministration.Discovery.DataSource" Target="SP2016!Microsoft.SharePoint.2016.MOSSInstallation" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="Nintex!Nintex.Workflow.SharePoint.CentralAdministration.Class" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="Nintex!Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" RunAs="SPLibrary!Microsoft.SharePoint.Library.AdminAccount">
+          <IntervalSeconds>86400</IntervalSeconds>
+          <SyncTime />
+          <TimeoutSeconds>300</TimeoutSeconds>
+          <DebugLogging>false</DebugLogging>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Nintex.Workflow.SharePoint.2016.CentralAdministration.Discovery.DataSource">
+          <Name>SharePoint Central Administration Discovery</Name>
+          <Description>Discovers the SharePoint 2016 Central Administration server.</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Nintex.Workflow.SharePoint.2016.CentralAdministration.Discovery.DataSource" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This discovery runs against all SharePoint 2016 servers and discovers the SharePoint Central Administration server.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

@@ -87,6 +87,15 @@ catch
     exit
 }
 
+if ( Get-Module -Name IISAdministration -ListAvailable )
+{
+    Import-Module -Name IISAdministration -ErrorAction Stop
+}
+else
+{
+    Import-Module -Name WebAdministration -ErrorAction Stop
+}
+
 #endregion initialize script
 
 #region Determine if this is the CA server
@@ -96,7 +105,15 @@ $discoveryData = @()
 $caName = [Microsoft.SharePoint.Administration.SPAdministrationWebApplication]::Local.DisplayName
 $caUrl = [Microsoft.SharePoint.Administration.SPAdministrationWebApplication]::Local.URL
 $caFarmName = [Microsoft.SharePoint.Administration.SPAdministrationWebApplication]::Local.Farm.Name
-$caIisSite = Get-IISSite -Name $caName
+
+if ( Get-Command -Name Get-IISSite )
+{
+    $caIisSite = Get-IISSite -Name $caName
+}
+else
+{
+    $caIisSite = Get-WebSite -Name $caName
+}
 
 if ( $caIisSite )
 {
@@ -187,7 +204,8 @@ foreach ( $discovered in $discoveryData )
     $discoveredString.AppendLine('') > $null
     $d++
 }
-Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $discoveredString.ToString() -DebugLogging:$debug
+$message = "`n$($discoveredString.ToString())"
+Write-OperationsManagerEvent @writeOperationsManagerEventParams -Severity 0 -Description $message -DebugLogging:$debug
 
 if (-not $TestRun)
 {

@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "Nintex.Workflow.SharePoint", "Nintex.Workflow.SharePoint\Nintex.Workflow.SharePoint.mpproj", "{8F6169D1-F3F5-4DB2-A1F2-6ADBA400BCD9}"
 EndProject
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "Nintex.Workflow.SharePoint.2019", "Nintex.Workflow.SharePoint.2019\Nintex.Workflow.SharePoint.2019.mpproj", "{4DA74634-AB64-4D7E-94DE-473FF7B7F963}"
+EndProject
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "Nintex.Workflow.SharePoint.2016", "Nintex.Workflow.SharePoint.2016\Nintex.Workflow.SharePoint.2016.mpproj", "{094BD58A-4FAC-4F5B-95E0-CB6B87196341}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +19,14 @@ Global
 		{8F6169D1-F3F5-4DB2-A1F2-6ADBA400BCD9}.Debug|x86.Build.0 = Debug|x86
 		{8F6169D1-F3F5-4DB2-A1F2-6ADBA400BCD9}.Release|x86.ActiveCfg = Release|x86
 		{8F6169D1-F3F5-4DB2-A1F2-6ADBA400BCD9}.Release|x86.Build.0 = Release|x86
+		{4DA74634-AB64-4D7E-94DE-473FF7B7F963}.Debug|x86.ActiveCfg = Debug|x86
+		{4DA74634-AB64-4D7E-94DE-473FF7B7F963}.Debug|x86.Build.0 = Debug|x86
+		{4DA74634-AB64-4D7E-94DE-473FF7B7F963}.Release|x86.ActiveCfg = Release|x86
+		{4DA74634-AB64-4D7E-94DE-473FF7B7F963}.Release|x86.Build.0 = Release|x86
+		{094BD58A-4FAC-4F5B-95E0-CB6B87196341}.Debug|x86.ActiveCfg = Debug|x86
+		{094BD58A-4FAC-4F5B-95E0-CB6B87196341}.Debug|x86.Build.0 = Debug|x86
+		{094BD58A-4FAC-4F5B-95E0-CB6B87196341}.Release|x86.ActiveCfg = Release|x86
+		{094BD58A-4FAC-4F5B-95E0-CB6B87196341}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

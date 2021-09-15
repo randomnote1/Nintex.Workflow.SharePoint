@@ -1,0 +1,85 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{05bb0728-d1de-453c-af94-085735ff2258}</ProjectGuid>
+    <RootNamespace>Nintex.Workflow.SharePoint.2013</RootNamespace>
+    <Name>Nintex.Workflow.SharePoint.2013</Name>
+    <ManagementPackName>Nintex.Workflow.SharePoint.2013</ManagementPackName>
+    <Version>1.0.0.0</Version>
+    <MpFrameworkVersion>v7.0.3</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSealed>True</GenerateSealed>
+    <Company>Microsoft</Company>
+    <Copyright>Copyright (c) Microsoft. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <AssemblyOriginatorKeyFile>..\..\Build\Nintex.Workflow.SharePoint.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>false</DelaySigning>
+    <Company>MyCompany</Company>
+    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SharePoint.Foundation.Library">
+      <HintPath>C:\Users\dareist\source\repos\Nintex.Workflow.SharePoint\Build\References\microsoft.sharepoint.foundation.library.mp</HintPath>
+      <Alias>SPFLibrary</Alias>
+      <MinVersion>15.0.4557.1000</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SharePoint.Server.2013.Discovery">
+      <HintPath>C:\Users\dareist\source\repos\Nintex.Workflow.SharePoint\Build\References\microsoft.sharepoint.server.2013.discovery.mp</HintPath>
+      <Alias>SP2013</Alias>
+      <MinVersion>15.0.4557.1000</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <Alias>SC</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <Alias>Windows</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Health.Library">
+      <Alias>Health</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <Alias>System</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Library">
+      <Alias>Visualization</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nintex.Workflow.SharePoint\Nintex.Workflow.SharePoint.mpproj">
+      <Name>Nintex.Workflow.SharePoint</Name>
+      <Project>{8f6169d1-f3f5-4db2-a1f2-6adba400bcd9}</Project>
+      <Private>True</Private>
+      <Alias>Nintex</Alias>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Discoveries" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Discoveries\Nintex.Workflow.SharePoint.2013.CentralAdministration.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ManagementPack.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>

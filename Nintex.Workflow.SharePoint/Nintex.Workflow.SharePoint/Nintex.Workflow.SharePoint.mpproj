@@ -29,12 +29,6 @@
     <AssemblyOriginatorKeyFile />
   </PropertyGroup>
   <ItemGroup>
-    <ManagementPackReference Include="Microsoft.SharePoint.2019.Discovery">
-      <HintPath>..\..\Build\References\Microsoft.SharePoint.2019.Discovery.mpb</HintPath>
-      <Alias>SP2019</Alias>
-      <MinVersion>16.0.11426.3000</MinVersion>
-      <PackageToBundle>False</PackageToBundle>
-    </ManagementPackReference>
     <ManagementPackReference Include="Microsoft.SharePoint.Library">
       <HintPath>..\..\Build\References\Microsoft.SharePoint.Library.mpb</HintPath>
       <Alias>SPLibrary</Alias>
@@ -116,9 +110,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Discoveries\Nintex.Workflow.SharePoint.AllObjects.Group.Discovery.mpx">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Discoveries\Nintex.Workflow.SharePoint.CentralAdministration.Discovery.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Discoveries\Nintex.Workflow.SharePoint.Discovery.mpx">

@@ -1,0 +1,85 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{4da74634-ab64-4d7e-94de-473ff7b7f963}</ProjectGuid>
+    <RootNamespace>Nintex.Workflow.SharePoint.2019</RootNamespace>
+    <Name>Nintex.Workflow.SharePoint.2019</Name>
+    <ManagementPackName>Nintex.Workflow.SharePoint.2019</ManagementPackName>
+    <Version>1.0.0.0</Version>
+    <MpFrameworkVersion>v7.0.3</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSealed>True</GenerateSealed>
+    <Company>Microsoft</Company>
+    <Copyright>Copyright (c) Microsoft. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <AssemblyOriginatorKeyFile>..\..\Build\Nintex.Workflow.SharePoint.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>false</DelaySigning>
+    <Company>MyCompany</Company>
+    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SharePoint.2019.Discovery">
+      <HintPath>C:\Users\dareist\source\repos\Nintex.Workflow.SharePoint\Build\References\Microsoft.SharePoint.2019.Discovery.mpb</HintPath>
+      <Alias>SP2019</Alias>
+      <MinVersion>16.0.11426.3000</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SharePoint.Library">
+      <HintPath>C:\Users\dareist\source\repos\Nintex.Workflow.SharePoint\Build\References\Microsoft.SharePoint.Library.mpb</HintPath>
+      <Alias>SPLibrary</Alias>
+      <MinVersion>16.0.11426.3000</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <Alias>SC</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <Alias>Windows</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Health.Library">
+      <Alias>Health</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <Alias>System</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Library">
+      <Alias>Visualization</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nintex.Workflow.SharePoint\Nintex.Workflow.SharePoint.mpproj">
+      <Name>Nintex.Workflow.SharePoint</Name>
+      <Project>{8f6169d1-f3f5-4db2-a1f2-6adba400bcd9}</Project>
+      <Private>True</Private>
+      <Alias>Nintex</Alias>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Discoveries" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Discoveries\Nintex.Workflow.SharePoint.2019.CentralAdministration.Discovery.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ManagementPack.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>

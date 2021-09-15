@@ -1,8 +1,7 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TypeDefinitions>
     <ModuleTypes>
-      <DataSourceModuleType ID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" Accessibility="Internal" Batching="false" RunAs="SPLibrary!Microsoft.SharePoint.Library.AdminAccount">
-      <!--<DataSourceModuleType ID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" Accessibility="Internal" Batching="false" RunAs="Nintex.Workflow.SharePoint.RunasProfile">-->
+      <DataSourceModuleType ID="Nintex.Workflow.SharePoint.CentralAdministration.Discovery.DataSource" Accessibility="Public" Batching="false" RunAs="SPLibrary!Microsoft.SharePoint.Library.AdminAccount">
         <Configuration>
           <xsd:element name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
           <xsd:element name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
